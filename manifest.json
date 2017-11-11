@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+
+  "name": "Facebook Greay",
+  "description": "Makes Facebook profile pictures colorblind.",
+  "version": "0.1",
+
+  "browser_action": {
+    "default_icon": "dog.png",
+    "default_popup": "popup.html",
+    "default_title": "Facebook Greay"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.facebook.com/*"],
+      "all_frames": true
+    }
+  ],
+
+  "permissions": [
+    "activeTab",
+    "storage"
+  ]
+}

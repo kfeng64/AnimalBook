@@ -1,3 +1,3 @@
-# Facebook-Greay
+# AnimalBook
 
-## Colorblind profile pictures for Facebook
+## Replaces Facebook profile pictures with friendly animals

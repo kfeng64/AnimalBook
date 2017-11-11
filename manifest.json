@@ -3,7 +3,7 @@
 
   "name": "AnimalBook",
   "description": "Replaces Facebook profile pictures with friendly animals",
-  "version": "0.1",
+  "version": "0.2",
 
   "browser_action": {
     "default_icon": "dog.png",

@@ -2,22 +2,51 @@ window.onload = main();
 
 function main() {
 	alert("Script Running");
-	// chrome.runtime.onMessage.addListener(
-	//   function(request, sender, sendResponse) {
-	//   	alert("got message");
-	//     console.log(sender.tab ?
-	//                 "from a content script:" + sender.tab.url :
-	//                 "from the extension");
-	//     if (request.greeting) {
-	//       sendResponse({farewell: "goodbye"});
-	//       alert(request.greeting);
-	//     }
-	//   });
+
+	var animals = ["https://i.imgur.com/SBBdO8b.jpg", "https://i.imgur.com/B7UJFRn.jpg", "https://i.imgur.com/gIunJ2r.jpg", "https://i.imgur.com/5O5LdRB.jpg", "https://i.imgur.com/sNhzxmR.jpg", "https://68.media.tumblr.com/10776e624890ff1b69653e6a0b649b1e/tumblr_inline_ortrrhjE1f1qzf6t4_540.png", "https://i.imgur.com/aBZ2pmU.png"];
+	var choice = "";
+	
+	chrome.storage.sync.get("choice", function(result) {
+		choice = result.choice;
+		alert(choice);
+		if (choice == "dogs"){
+		  	animals = ["https://i.imgur.com/SBBdO8b.jpg", "https://i.imgur.com/B7UJFRn.jpg", "https://i.imgur.com/gIunJ2r.jpg", "https://i.imgur.com/5O5LdRB.jpg", "https://i.imgur.com/sNhzxmR.jpg", "https://68.media.tumblr.com/10776e624890ff1b69653e6a0b649b1e/tumblr_inline_ortrrhjE1f1qzf6t4_540.png", "https://i.imgur.com/aBZ2pmU.png"];
+		  } else if (choice == "cats"){
+		  	animals = ["https://i.imgur.com/Lb72oOt.jpg", "https://i.imgur.com/a8g7LN3.jpg", "https://i.imgur.com/1eGvND1.jpg", "https://i.imgur.com/JAyZUbr.jpg", "https://i.imgur.com/aSPfMtv.jpg", "https://i.imgur.com/eMOJo5x.jpg"];
+		  	alert("cats");
+		  } else if (choice == "other") {
+		  	animals = ["https://i.imgur.com/6APa6U5.jpg", "https://i.imgur.com/UotvQlG.jpg", "https://i.imgur.com/qUU8tSM.jpg", "https://i.imgur.com/JsEF641.jpg", "https://i.imgur.com/n5dhNzj.jpg", "https://i.imgur.com/7w8Pn2I.jpg"];
+		  } else if (choice == "all") {
+		  	animals = [];
+		  }
+	});
+
+	  
+
+
+
+	// var port = chrome.runtime.connect({name: "choice"});
+	// port.postMessage({listen: "Listening"});
+	// port.onMessage.addListener(function(msg) {
+	//   if (msg.choice == "dogs"){
+	//   	animals = ["https://i.imgur.com/SBBdO8b.jpg", "https://i.imgur.com/B7UJFRn.jpg", "https://i.imgur.com/gIunJ2r.jpg", "https://i.imgur.com/5O5LdRB.jpg", "https://i.imgur.com/sNhzxmR.jpg", "https://68.media.tumblr.com/10776e624890ff1b69653e6a0b649b1e/tumblr_inline_ortrrhjE1f1qzf6t4_540.png", "https://i.imgur.com/aBZ2pmU.png"];
+	//   } else if (msg.choice == "cats"){
+	//   	animals = ["https://i.imgur.com/Lb72oOt.jpg", "https://i.imgur.com/a8g7LN3.jpg", "https://i.imgur.com/1eGvND1.jpg", "https://i.imgur.com/JAyZUbr.jpg", "https://i.imgur.com/aSPfMtv.jpg", "https://i.imgur.com/eMOJo5x.jpg"];
+	//   } else if (msg.choice == "other") {
+	//   	animals = ["https://i.imgur.com/6APa6U5.jpg", "https://i.imgur.com/UotvQlG.jpg", "https://i.imgur.com/qUU8tSM.jpg", "https://i.imgur.com/JsEF641.jpg", "https://i.imgur.com/n5dhNzj.jpg", "https://i.imgur.com/7w8Pn2I.jpg"];
+	//   } else if (msg.choice == "all") {
+	//   	animals = [];
+	//   }
+	// });
+
+
+
+
 	MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 		
 	var observer = new MutationObserver(function(mutations, observer) {
     // fired when a mutation occurs
-    replacePics();
+    replacePics(animals);
     console.log(mutations, observer);
     // ...
 });
@@ -27,33 +56,29 @@ function main() {
 		attributes: true
 	});
 
-	//window.setInterval(replacePics, 100);
-	//replacePics();
-
 }
 
 //Choose random dog pic
-function dogPic() {
-	var dogArray = ["https://i.imgur.com/SBBdO8b.jpg", "https://i.imgur.com/B7UJFRn.jpg", "https://i.imgur.com/gIunJ2r.jpg", "https://i.imgur.com/5O5LdRB.jpg", "https://i.imgur.com/sNhzxmR.jpg", "https://68.media.tumblr.com/10776e624890ff1b69653e6a0b649b1e/tumblr_inline_ortrrhjE1f1qzf6t4_540.png", "https://i.imgur.com/aBZ2pmU.png"];
+function rndPic(animals) {
+	var arr = animals;
 
-	var dog = dogArray[Math.floor(Math.random() * dogArray.length)];
+	var result = arr[Math.floor(Math.random() * arr.length)];
 
-	return dog;
+	return result;
 }
 
 
+function replacePics(animals) {
+	// var dogArray = ["https://i.imgur.com/SBBdO8b.jpg", "https://i.imgur.com/B7UJFRn.jpg", "https://i.imgur.com/gIunJ2r.jpg", "https://i.imgur.com/5O5LdRB.jpg", "https://i.imgur.com/sNhzxmR.jpg", "https://68.media.tumblr.com/10776e624890ff1b69653e6a0b649b1e/tumblr_inline_ortrrhjE1f1qzf6t4_540.png", "https://i.imgur.com/aBZ2pmU.png"];
 
 
-
-function replacePics() {
-	var dogArray = ["https://i.imgur.com/SBBdO8b.jpg", "https://i.imgur.com/B7UJFRn.jpg", "https://i.imgur.com/gIunJ2r.jpg", "https://i.imgur.com/5O5LdRB.jpg", "https://i.imgur.com/sNhzxmR.jpg", "https://68.media.tumblr.com/10776e624890ff1b69653e6a0b649b1e/tumblr_inline_ortrrhjE1f1qzf6t4_540.png", "https://i.imgur.com/aBZ2pmU.png"];
 
 	//Replaces profile picture icon of a post
 	var postPic = document.getElementsByClassName("_s0 _4ooo _5xib _5sq7 _44ma _rw img");
 
 	for (var i = 0; i < postPic.length; i++) {
-		if (!dogArray.includes(postPic[i].src)){
-			postPic[i].src = dogPic();
+		if (!animals.includes(postPic[i].src)){
+			postPic[i].src = rndPic(animals);
 		}
 		
 		
@@ -62,8 +87,8 @@ function replacePics() {
 	//Replaces profile picture icons of commentors
 	var commentPic = document.getElementsByClassName("img UFIActorImage _54ru img");
 	for (var i = 0; i < commentPic.length; i++) {
-		if (!dogArray.includes(commentPic[i].src)){
-			commentPic[i].src = dogPic();
+		if (!animals.includes(commentPic[i].src)){
+			commentPic[i].src = rndPic(animals);
 		}
 		
 	}
@@ -71,8 +96,8 @@ function replacePics() {
 	//Replaces profile picture when hovering over user
 	var hoverProfPic = document.getElementsByClassName("_s0 _4ooo _1ve7 _7lw _rv img");
 	for (var i = 0; i < hoverProfPic.length; i++) {
-		if (!dogArray.includes(hoverProfPic[i].src)){
-			hoverProfPic[i].src = dogPic();
+		if (!animals.includes(hoverProfPic[i].src)){
+			hoverProfPic[i].src = rndPic(animals);
 		}
 		
 	}

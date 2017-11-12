@@ -11,6 +11,11 @@
     "default_title": "AnimalBook"
   },
 
+  "background": {
+    "scripts": ["eventPage.js"],
+    "persistent": false
+  },
+
   "content_scripts": [
     {
       "matches": ["https://www.facebook.com/*"],

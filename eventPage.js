@@ -1,15 +1,26 @@
-// window.onload = main();
+window.onload = function(){
+	document.getElementById("enter").onclick = setChoice;
+}
 
-// function main() {
-// 	document.getElementById("enter").addEventListener("click", function() {
-// 		var dropdown = document.getElementById("dropdown").value;
-// 		chrome.storage.sync.set({"choice": dropdown}, function() {
-// 			alert("option saved");
-// 		});
-// 	});
+function setChoice() {
+	var dropdown = document.getElementById("dropdown").value;
+	alert("test");
+	if (dropdown == "dogs") {
+		chrome.storage.sync.set({"choice": "dogs"}, function() {
+		alert("option saved");
+	});
+	} else if (dropdown == "cats") {
+		chrome.storage.sync.set({"choice": "cats"}, function() {
+		alert("option saved");
+	});
+	} else if (dropdown == "other") {
+		chrome.storage.sync.set({"choice": "other"}, function() {
+		alert("option saved");
+	});
+	} else if (dropdown == "all") {
+		chrome.storage.sync.set({"choice": "all"}, function() {
+		alert("option saved");
+	});
+	}
+}
 
-// }
-
-chrome.storage.sync.set({"choice": "other"}, function() {
-	//alert("option saved");
-});

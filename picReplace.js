@@ -23,7 +23,7 @@ function main() {
 		  } else if (choice == "other") {
 		  	animals = other;
 		  } else if (choice == "all") {
-		  	animals.concat(dogs, cats, other);
+		  	animals.concat(cats, other);
 		  }
 	});
 
